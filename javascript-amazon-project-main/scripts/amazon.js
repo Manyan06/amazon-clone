@@ -137,6 +137,12 @@ document.querySelectorAll('.js-add-to-cart')
         }); //Add the product to the cart array
       }
 
-      console.log(cart);
+      let cartQuantity = 0; //Total quantity of items in the cart
+      cart.forEach((item) => {
+        cartQuantity += item.quantity;
+      });
+
+      document.querySelector('.js-cart-quantity')
+        .innerHTML = cartQuantity; //Update the cart quantity in the HTML
     });
   });
