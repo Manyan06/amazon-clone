@@ -1,1 +1,2 @@
-[Visit Amazon clone] (https://amazonclone115.netlify.app/)
+
+[Visit Amazon clone](https://amazonclone115.netlify.app/)
