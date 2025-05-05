@@ -94,11 +94,49 @@ products.forEach((product) => {
         Added
       </div>
 
-      <button class="add-to-cart-button button-primary">
+      <button class="add-to-cart-button button-primary js-add-to-cart"
+      data-product-Id="${product.Id}">
         Add to Cart
       </button>
     </div>
   `;
 }) ;
-console.log(productsHTML) ;
-document.querySelector('.js-products-grid').innerHTML = productsHTML;  
+
+document.querySelector('.js-products-grid').innerHTML = productsHTML; 
+
+// How do we know which product to add?
+// DATA ATTRIBUTE - is just another HTML attribute which allows us to attach any information to an element
+
+// SYNTAX: data-<name>="<value>"
+// EXAMPLE: data-product-name="Black and Gray Athletic Cotton Socks - 6 Pairs"
+
+//LOGIC of CART
+// 1. Check if the product is already int the cart
+// 2. If it is, increase the quantity by 1
+// 3. If it is not, add the product to the cart 
+
+document.querySelectorAll('.js-add-to-cart')
+  .forEach((button) => {
+    button.addEventListener('click', () => {
+      const productId = button.dataset.productId;  //Gives us all the data attributes
+
+      let matchingItem;
+
+      cart.forEach((item) => {
+        if (productId === item.productId) {
+          matchingItem = item; //Find the product in the cart array
+        }
+      });
+
+      if (matchingItem) {
+        matchingItem.quantity += 1; //If the product is already in the cart, increase the quantity by 1
+      } else {
+        cart.push({
+          productId: productId,
+          quantity: 1
+        }); //Add the product to the cart array
+      }
+
+      console.log(cart);
+    });
+  });
