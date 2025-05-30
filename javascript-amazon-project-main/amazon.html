@@ -57,11 +57,21 @@
       </div>
     </div>
 
-    <script src="data/cart.js"></script>
+
+    <!-- Using modules to combine all the files together into 1 big file -->
+
+    <!-- Create a Module
+    1. Create a file
+    2. Don't load the file with <scripts>
+
+    Any variables we create inside the file, will be contained inside the file. -->
+
+
+    
     <!-- for looks of webpage -->
     <script src="data/products.js"></script>
     <!-- for looping through the products -->
-    <script src = "scripts/amazon.js"></script>
+    <script type = "module" src = "scripts/amazon.js"></scripts>
 
   </body>
 </html>
