@@ -6,7 +6,7 @@
     // Any variables we create inside the file, will be contained inside the file. 
 
     // Get a Variable Out of a File
-    // 1. Add type="module" attribute
+    // 1. Add type="module" attribute in html file
     // 2. Export
     // 3. Import
 
