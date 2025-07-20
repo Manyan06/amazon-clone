@@ -45,9 +45,13 @@
 //   priceCents: 1899
 // }];
 
-import {cart} from '../data/cart.js';
+import {cart, addToCart} from '../data/cart.js';
 //import {cart as myCart} from '../data/cart.js';
 //const cart = [];
+
+//import * as cartModule from '../data/cart.js';
+//cartModule.cart;
+//cartModule.addToCart('id');
 
 import {products} from '../data/products.js';
 
@@ -121,34 +125,24 @@ document.querySelector('.js-products-grid').innerHTML = productsHTML;
 // 2. If it is, increase the quantity by 1
 // 3. If it is not, add the product to the cart 
 
-document.querySelectorAll('.js-add-to-cart')
-  .forEach((button) => {
-    button.addEventListener('click', () => {
-      const productId = button.dataset.productId;  //Gives us all the data attributes
 
-      let matchingItem;
-
-      cart.forEach((item) => {
-        if (productId === item.productId) {
-          matchingItem = item; //Find the product in the cart array
-        }
-      });
-
-      if (matchingItem) {
-        matchingItem.quantity += 1; //If the product is already in the cart, increase the quantity by 1
-      } else {
-        cart.push({
-          productId: productId,
-          quantity: 1
-        }); //Add the product to the cart array
-      }
-
-      let cartQuantity = 0; //Total quantity of items in the cart
-      cart.forEach((item) => {
-        cartQuantity += item.quantity;
+function updateCartQuantity() {
+  let cartQuantity = 0; //Total quantity of items in the cart
+      cart.forEach((cartItem) => {
+        cartQuantity += cartItem.quantity;
       });
 
       document.querySelector('.js-cart-quantity')
         .innerHTML = cartQuantity; //Update the cart quantity in the HTML
+}
+
+document.querySelectorAll('.js-add-to-cart')
+  .forEach((button) => {
+    button.addEventListener('click', () => {
+      const productId = button.dataset.productId;  //Gives us all the data attributes
+      addToCart(productId); //Call the function to add the product to the cart
+
+      updateCartQuantity(); //Update the cart quantity in the HTML
+      
     });
   });

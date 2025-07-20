@@ -17,3 +17,22 @@
 
 
 export const cart =[];
+
+export function addToCart(productId) {
+        let matchingItem;
+
+      cart.forEach((cartItem) => {
+        if (productId === cartItem.productId) {
+          matchingItem = cartItem; //Find the product in the cart array
+        }
+      });
+
+      if (matchingItem) {
+        matchingItem.quantity += 1; //If the product is already in the cart, increase the quantity by 1
+      } else {
+        cart.push({
+          productId: productId,
+          quantity: 1
+        }); //Add the product to the cart array
+      }
+}
