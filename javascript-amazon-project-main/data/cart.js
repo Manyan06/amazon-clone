@@ -16,7 +16,7 @@
     // import in amazon.js
 
 
-export const cart =[{
+export let cart =[{
     productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
     quantity: 2
 }, {
@@ -41,4 +41,20 @@ export function addToCart(productId) {
           quantity: 1
         }); //Add the product to the cart array
       }
+}
+
+
+//STEPS
+//1. Create a new array
+//2. Loop through the cart array
+//3. Add each Product to the new array, except for this productId
+export function removeFromCart(productId) {
+  const newCart = [];
+  cart.forEach ((cartItem) => {
+    if (cartItem.productId !== productId) {
+      newCart.push(cartItem); //Add the cart item to the new array if it doesn't match the productId
+    }
+  });
+
+  cart = newCart; //Replace the cart with the new array
 }
