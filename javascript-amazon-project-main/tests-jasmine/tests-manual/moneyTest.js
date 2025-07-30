@@ -12,7 +12,7 @@
 
 // group of related tests = test suite
 
-import {formatCurrency} from '../scripts/utils/money.js';
+import {formatCurrency} from '../../scripts/utils/money.js';
 
 console.log('Test suite: formatCurrency function');
 
