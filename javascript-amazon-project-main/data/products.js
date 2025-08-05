@@ -13,7 +13,6 @@ export function getProduct(productId) {
 
 }
 
-
 class Product {
   id;
   image;
@@ -36,7 +35,75 @@ class Product {
   getPrice() {
     return `$${formatCurrency(this.priceCents)}`
   }
+
+  extraInfoHTML() {
+    return '';
+  }
 }
+
+
+//INHERITANCE = lets us reuse code between classes
+
+class Clothing extends Product{
+  sizeChartLink;
+
+  constructor(productDetails) {
+    super(productDetails); //Call the parent class constructor
+    this.sizeChartLink = productDetails.sizeChartLink;
+  }
+
+  extraInfoHTML() {
+    //super.extraInfoHTML(); = Call the parent class method
+    return `
+      <a href="${this.sizeChartLink}" target="_blank">
+        Size chart
+      </a>
+    `;
+  }
+}
+
+/*
+//Built-in Methods
+
+const date = new Date();
+console.log(date);
+console.log(date.toLocaleTimeString()); //Convert date to local time string
+*/
+
+/*
+console.log(this);
+
+//   THIS  //
+
+// Inside a method,"this" points to the outer object 
+
+const object2 = {
+  a: 2,
+  b: this.a
+};
+*/
+
+// Inside a function, "this" = undefined....But we can change it with "call"
+
+/*
+function logThis() {
+  console.log(this);
+}
+logThis();
+logThis.call('hello');
+*/
+
+//Arrow functions do not change the value of "this"
+
+/*
+const object3 = {
+  method: () => {
+    console.log(this);
+  }
+};
+object3.method();
+*/
+
 
 // const product1 = new Product({
 //     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -55,6 +122,59 @@ class Product {
 //   });
 // console.log(product1);
 
+
+export let products = [];
+
+// fetch() = makes http requests
+
+export function loadProductsFetch() {
+  const promise = fetch(
+    'https://supersimplebackend.dev/products'
+  ).then((response) => {
+    return response.json()
+  }).then((productsData) => {
+    products = productsData.map((productDetails) => {   
+      if (productDetails.type === 'clothing') {
+        return new Clothing(productDetails); 
+      }
+      return new Product(productDetails);
+      });
+      console.log('load products');
+  });    
+
+  return promise;
+}
+/*
+loadProductsFetch().then(() => {
+  console.log('next step');
+});
+*/
+
+
+// CALLBACK - a function to run in the future (fun)
+
+export function loadProducts(fun) {
+  const xhr = new XMLHttpRequest();
+
+  xhr.addEventListener('load', () => {
+    products = JSON.parse(xhr.response).map((productDetails) => {   
+  if (productDetails.type === 'clothing') {
+    return new Clothing(productDetails); 
+  }
+  return new Product(productDetails);
+  });
+  console.log('load products');
+
+  fun();
+  });
+
+  xhr.open('GET', 'https://supersimplebackend.dev/products');
+  xhr.send();
+}
+
+
+
+/*
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -715,6 +835,10 @@ export const products = [
     ]
   }
 ].map((productDetails) => {   //map = loop through each product
+  if (productDetails.type === 'clothing') {
+    return new Clothing(productDetails); //If the product is clothing, create a Clothing instance
+  }
   return new Product(productDetails);
 });
+*/
 

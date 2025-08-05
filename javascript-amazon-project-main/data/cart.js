@@ -91,3 +91,15 @@ export function updateDeliveryOption(productId, deliveryOptionId) {
 
     SavetoLocalStorage(); //Save the updated cart to local storage
 }
+
+export function loadCart(fun) {
+  const xhr = new XMLHttpRequest();
+
+  xhr.addEventListener('load', () => {
+  console.log('XHR loaded');
+  fun();
+  });
+
+  xhr.open('GET', 'https://supersimplebackend.dev/cart');
+  xhr.send();
+}
