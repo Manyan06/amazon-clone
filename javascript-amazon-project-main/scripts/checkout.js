@@ -13,14 +13,25 @@ import {loadCart} from '../data/cart.js';
 
 async function loadPage() {
 
-  //Returns a promise
-  await loadProductsFetch();
+  try {
+    //throw 'error1';
 
-  await new Promise((resolve) => {
-      loadCart(() => {
-        resolve();
-      });
-  });
+    //Returns a promise
+    await loadProductsFetch();
+
+    // reject is a function and lets us create an error in the future
+
+    const value = await new Promise((resolve,reject) => {
+      //throw 'error2';
+        loadCart(() => {
+          //reject('error3');
+          resolve('value3');
+        });
+    });
+
+  } catch(error) {
+    console.error('Error.Please try again later.');
+  }
 
   renderOrderSummary();
   renderPaymentSummary();
