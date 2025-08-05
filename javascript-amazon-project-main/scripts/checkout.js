@@ -5,6 +5,31 @@ import {loadCart} from '../data/cart.js';
 // import '../data/cart-class.js';
 // import '../data/backend-practice.js';
 
+
+
+//Async Await is a shortcut for promises
+// ASYNC = makes a function return a promise
+// AWAIT = waits for a promise to finish, before going to the next line. (Lets us write asynchronous code in a synchronous way)
+
+async function loadPage() {
+
+  //Returns a promise
+  await loadProductsFetch();
+
+  await new Promise((resolve) => {
+      loadCart(() => {
+        resolve();
+      });
+  });
+
+  renderOrderSummary();
+  renderPaymentSummary();
+}
+loadPage();
+
+
+
+
 // Promises  = keeps our code flat and avoids nesting
 
 // Promise.all() = lets us run multiple promises parallely & wait for all of them to finish
@@ -12,6 +37,7 @@ import {loadCart} from '../data/cart.js';
 //resolve is a function , similar to Jasmines's done function (lets us control when to go to the next step)
 
 
+/*
 Promise.all([
   loadProductsFetch(), //Returns a promise
   new Promise((resolve) => {
@@ -25,6 +51,7 @@ Promise.all([
   renderOrderSummary();
   renderPaymentSummary();
 });
+*/
 
 
 // MULTIPLE PROMISES

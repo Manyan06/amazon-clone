@@ -96,7 +96,7 @@ export function loadCart(fun) {
   const xhr = new XMLHttpRequest();
 
   xhr.addEventListener('load', () => {
-  console.log('XHR loaded');
+  console.log('loaded cart');
   fun();
   });
 
